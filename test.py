@@ -14,5 +14,5 @@ def create_partition_key(df):
     df = df.withColumn("partition_key", create_partition_dim("patient_id"))
     return df
   
-  patient_df = create_partition_key(patient_df)
+  patient_df = create_partition_key(patient_df) #assuming intermediate result stored in patient_df
   patient_df.repartition(300).write.mode("overwrite").partitionBy('partition_key').parquet('s3://lifescience-mvp/Shuks/result_files/')
